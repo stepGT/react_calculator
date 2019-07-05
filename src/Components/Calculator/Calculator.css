@@ -1,0 +1,9 @@
+.react_calculator {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 300px;
+  text-align: center;
+}
+.react_calculator div {
+  margin-top: 10px;
+}
