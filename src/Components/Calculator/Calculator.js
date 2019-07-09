@@ -11,37 +11,37 @@ class Calculator extends Component {
       operation: '+'
     };
     this.showResult = this.showResult.bind(this);
-    this.handleNumber1Change = this.handleNumber1Change.bind(this);
-    this.handleNumber2Change = this.handleNumber2Change.bind(this);
-    this.handleOperationChange = this.handleOperationChange.bind(this);
   }
 
   handleOperationChange(e) {
-    this.setState({
-      operation: e.target.value
-    });
+    let {number1, number2} = this.state;
+    let operation = e.currentTarget.value;
+    this.setState({operation: operation});
+    this.showResult(operation, number1, number2);
   }
 
   handleNumber1Change(e) {
-    this.setState({
-      number1: +e.target.value
-    });
+    let {number2, operation} = this.state;
+    let number1 = Number(e.currentTarget.value);
+    this.setState({number1: number1});
+    this.showResult(operation, number1, number2);
   }
 
   handleNumber2Change(e) {
-    this.setState({
-      number2: +e.target.value
-    });
+    let {number1, operation} = this.state;
+    let number2 = Number(e.currentTarget.value);
+    this.setState({number2: number2});
+    this.showResult(operation, number1, number2);
   }
 
-  showResult() {
+  showResult(operation, number1, number2) {
     let result = 0;
-    switch (this.state.operation) {
+    switch (operation) {
       case '+':
-        result = this.state.number1 + this.state.number2;
+        result = number1 + number2;
         break;
       case '-':
-        result = this.state.number1 - this.state.number2;
+        result = number1 - number2;
         break;
       default:
         break;
@@ -53,23 +53,21 @@ class Calculator extends Component {
     return (
         <div className="react_calculator">
           <div>
-            <input onChange={this.handleNumber1Change}
+            <input onChange={this.handleNumber1Change.bind(this)}
                    value={this.state.number1}
                    type="text"/>
           </div>
           <div>
-            <select onChange={this.handleOperationChange} name="" id="">
+            <select onChange={this.handleOperationChange.bind(this)} name=""
+                    id="">
               <option value='+'>+</option>
               <option value='-'>-</option>
             </select>
           </div>
           <div>
-            <input onChange={this.handleNumber2Change}
+            <input onChange={this.handleNumber2Change.bind(this)}
                    value={this.state.number2}
                    type="text"/>
-          </div>
-          <div>
-            <button onClick={this.showResult}>Calculate</button>
           </div>
           <div>
             Result <span>
